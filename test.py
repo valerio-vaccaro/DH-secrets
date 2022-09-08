@@ -2,13 +2,13 @@ import pytest
 import os
 import json
 import glob
-from dhsecrets import DHSecrets
+from dhsecrets.dhsecrets import DHSecrets
 
 
 class TestDHSecrets:
 
     def test(self):
-        files = glob.glob(os.path.join('./test','*'))
+        files = glob.glob(os.path.join('./test', '*'))
         for file in files:
             os.remove(file)
 
@@ -34,7 +34,6 @@ class TestDHSecrets:
 
         filename = dhs3.encode(dhs1, dhs2, 'pippo')
         print(filename)
-
 
         message = dhs3.decode(dhs2, dhs1, filename+'.enc')
         print(message)

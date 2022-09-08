@@ -1,12 +1,13 @@
 import argparse
 import pathlib
 import json
-from dhsecrets import DHSecrets
+from dhsecrets.dhsecrets import DHSecrets
 
 
 def main():
     parser = argparse.ArgumentParser(description='Diffie-Hellman secrets.')
-    parser.add_argument('-p', '--path', help='Key path', type=pathlib.Path, default='.')
+    parser.add_argument('-p', '--path', help='Key path',
+                        type=pathlib.Path, default='.')
 
     subparsers = parser.add_subparsers(dest='command')
     subparsers.required = True
@@ -21,18 +22,26 @@ def main():
     generatesubparsers = generate_parser.add_subparsers(dest='keytype')
     generatesubparsers.required = True
     priv_generate_parser = generatesubparsers.add_parser('priv')
-    priv_generate_parser.add_argument('-e', '--encoding', help='Encoding of the privkey (HEX, BASE64)', default='HEX')
-    priv_generate_parser.add_argument('-n', '--name', help='Keyname', required=True)
+    priv_generate_parser.add_argument(
+        '-e', '--encoding', help='Encoding of the privkey (HEX, BASE64)', default='HEX')
+    priv_generate_parser.add_argument(
+        '-n', '--name', help='Keyname', required=True)
 
     encode_parser = subparsers.add_parser('encode')
-    encode_parser.add_argument('--priv', help='Privkey', type=open, required=True)
-    encode_parser.add_argument('--pub', help='Pubkey', type=open, required=True)
-    encode_parser.add_argument('-P', '--payload', help='Payload', required=True)
+    encode_parser.add_argument(
+        '--priv', help='Privkey', type=open, required=True)
+    encode_parser.add_argument(
+        '--pub', help='Pubkey', type=open, required=True)
+    encode_parser.add_argument(
+        '-P', '--payload', help='Payload', required=True)
 
     decode_parser = subparsers.add_parser('decode')
-    decode_parser.add_argument('--priv', help='Privkey', type=open, required=True)
-    decode_parser.add_argument('--pub', help='Pubkey', type=open, required=True)
-    decode_parser.add_argument('-F', '--filename', help='filename', type=open, required=True)
+    decode_parser.add_argument(
+        '--priv', help='Privkey', type=open, required=True)
+    decode_parser.add_argument(
+        '--pub', help='Pubkey', type=open, required=True)
+    decode_parser.add_argument(
+        '-F', '--filename', help='filename', type=open, required=True)
 
     args = parser.parse_args()
 
@@ -75,5 +84,5 @@ def main():
         exit(1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
